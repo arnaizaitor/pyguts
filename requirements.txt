@@ -1,0 +1,10 @@
+astroid==3.2.2
+black==24.4.2
+coverage==7.5.4
+dill==0.3.8
+flake8==7.1.0
+isort==5.13.2
+platformdirs==4.2.2
+pylint==3.2.5
+pytest==8.2.2
+tomlkit==0.12.5
