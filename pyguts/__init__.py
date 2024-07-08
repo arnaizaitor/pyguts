@@ -24,6 +24,7 @@ def run_pyguts(argv: Sequence[str] | None = None) -> None:
         logger.warning("pyguts interrupted by user")
         sys.exit(1)
 
+
 def set_guts_path() -> None:
     """Set the path to the guts package in sys.path."""
     # Add the path to the guts root path in sys.path

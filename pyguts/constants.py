@@ -21,11 +21,12 @@ full_version = f"""pyguts {__version__}
 astroid {astroid.__version__}
 Python {sys.version}"""
 
+
 def _get_pyguts_home() -> str:
     """Return the pyguts home."""
     return os.path.abspath(
-            os.path.join(os.path.dirname(os.path.abspath(__file__)), os.path.pardir)
-        )
+        os.path.join(os.path.dirname(os.path.abspath(__file__)), os.path.pardir)
+    )
 
 
 PYGUTS_HOME = _get_pyguts_home()

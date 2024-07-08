@@ -6,13 +6,16 @@ from typing import (
     Literal,
 )
 
+
 @dataclass
 class ModuleASTs:
     """
     Represents a module and its Abstract Syntax Trees (ASTs).
     """
+
     module_name: str
     asts: List[ast.Module]
+
 
 """All possible message categories."""
 MessageTypesFullName = Literal[
