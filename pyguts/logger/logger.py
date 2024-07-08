@@ -62,4 +62,4 @@ def _configure_logger(log_file=None, print_stdout=True):
     return logger
 
 
-logger = _configure_logger(print_stdout=False)
+logger = _configure_logger(print_stdout=True)

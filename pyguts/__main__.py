@@ -17,8 +17,8 @@ sys.path.insert(
 import pyguts
 from pyguts.logger.logger import logger  # noqa: E402
 
-logger.info("Running pyguts as a Python module. Modifying system path...")
-pyguts.modify_sys_path()
+logger.info("Running pyguts. Modifying system path...")
+pyguts.set_guts_path()
 
 logger.info("Running pyguts...")
 pyguts.run_pyguts()
