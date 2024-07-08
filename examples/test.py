@@ -1,6 +1,7 @@
 # pylint: skip-file
 # flake8: noqa
 
+
 def calculate_discount(price):
     return price - 10  # Magic number used directly
 
