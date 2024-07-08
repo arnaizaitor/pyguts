@@ -29,7 +29,7 @@ black:
 # Define the targets to run pylint and Flake8
 lint:
 	@echo "Running pylint..."
-	@pylint $(PYTHON_FILES) --rcfile .pylintrc
+	@python3 -m pylint $(PYTHON_FILES) --rcfile .pylintrc --disable=I0011,I0013,I0021
 	@echo "Running Flake8..."
 	@flake8 $(PYTHON_FILES)
 

@@ -1,3 +1,6 @@
+# pylint: skip-file
+# flake8: noqa
+
 """
 Main module for my_python_tool
 """

@@ -1,7 +1,7 @@
 # For details: https://github.com/arnaizaitor/pyguts/blob/main/LICENSE
 # Copyright (c) https://github.com/arnaizaitor/pyguts/blob/main/CONTRIBUTORS.txt
 
-__all__ = ["__version__", "version", "modify_sys_path", "run_pyguts"]
+__all__ = ["__version__", "set_guts_path", "run_pyguts"]
 
 import os
 import sys

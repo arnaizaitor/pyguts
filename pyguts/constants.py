@@ -5,7 +5,7 @@ import astroid
 from pyguts.__pkginfo__ import __version__
 from pyguts.gtyping import MessageTypesFullName
 
-# TODO Redefine message types
+# TODO Redefine message types  # pylint: disable=fixme
 MSG_TYPES: dict[str, MessageTypesFullName] = {
     "I": "info",
     "C": "convention",

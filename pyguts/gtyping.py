@@ -17,7 +17,6 @@ class ModuleASTs:
     asts: List[ast.Module]
 
 
-"""All possible message categories."""
 MessageTypesFullName = Literal[
     "convention",
     "error",
