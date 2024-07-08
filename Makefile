@@ -29,7 +29,7 @@ black:
 # Define the targets to run pylint and Flake8
 lint:
 	@echo "Running pylint..."
-	@pylint $(PYTHON_FILES)
+	@pylint $(PYTHON_FILES) --rcfile .pylintrc
 	@echo "Running Flake8..."
 	@flake8 $(PYTHON_FILES)
 

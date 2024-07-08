@@ -22,7 +22,7 @@ max-returns=6
 max-statements=50
 
 # Disable the message, report, category or checker with the given id(s).
-disable=C0114,C0115,C0116
+disable=C0114,C0115,C0116,I0013
 
 # Use a blacklisted name for the specified module names.
 bad-names=foo,bar,baz
