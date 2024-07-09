@@ -110,8 +110,9 @@ class AbsolutePathChecker(BaseChecker):
         # Evaluate the concatenation of two string nodes
         return left.value + right.value
 
-    def register(self, guts: PyGuts) -> None:
-        guts.register_checker(AbsolutePathChecker())
-
     def check(self) -> None:
         logger.debug("Checking for absolute paths existance...")
+
+
+def register(guts: PyGuts) -> None:
+    guts.register_checker(AbsolutePathChecker())

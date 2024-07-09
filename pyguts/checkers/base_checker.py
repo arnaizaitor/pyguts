@@ -1,6 +1,8 @@
 from astroid import nodes
 from abc import ABC, abstractmethod
 
+from pyguts.constants import MAIN_CHECKER_NAME
+
 from pyguts.gtyping import (
     MessageDefinitionTuple,
     ModuleASTs,
@@ -34,11 +36,6 @@ class BaseChecker(ABC):
     @abstractmethod
     def check(self) -> None:
         """Run the checker and return the messages."""
-        raise NotImplementedError
-
-    @abstractmethod
-    def register(self) -> None:
-        """Register the checker."""
         raise NotImplementedError
 
     def __str__(self) -> str:

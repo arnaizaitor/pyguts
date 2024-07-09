@@ -104,8 +104,10 @@ class VirtualUnitsChecker(BaseChecker):
                                     confidence=HIGH,
                                 )
 
-    def register(self, guts: PyGuts) -> None:
-        guts.register_checker(VirtualUnitsChecker())
-
     def check(self) -> None:
         logger.debug("Checking for virtual unit creation...")
+
+
+def register(guts: PyGuts) -> None:
+    guts.register_checker(VirtualUnitsChecker())
+

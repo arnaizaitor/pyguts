@@ -3,6 +3,7 @@ import ast
 import astroid
 
 from typing import Iterable, List
+from collections import defaultdict
 
 from pyguts.checkers import BaseChecker
 from pyguts.constants import PY_EXTS, PYGUTS_HOME
@@ -17,6 +18,9 @@ class PyGuts(ASTWalker):
 
     def __init__(self, base_dir: str) -> None:
         self.base_dir = base_dir
+        self._checkers: defaultdict[str, list[checkers.BaseChecker]] = (
+            defaultdict(list)
+        )
 
     def guts(self, recursive: bool = True) -> None:
         """
@@ -37,6 +41,10 @@ class PyGuts(ASTWalker):
         #         self._print_classes_functions_methods(ast_tree)
 
         self.register_checkers()
+
+        checkers = self.get_checkers()
+        for checker in checkers:
+            checker.check()
 
     # TODO: Remove, only for demonstration purposes
     def _print_classes_functions_methods(self, tree: ast.Module) -> None:
@@ -83,8 +91,11 @@ class PyGuts(ASTWalker):
                     logger.error(f"Failed to load checker module: {filename}: {exc}")
                 else:
                     if hasattr(module, "register"):
-                        logger.debug(f"Registering checker: {module.__name__}")
                         module.register(self)
+                    else:
+                        logger.error(
+                            f"Checker module {module.__name__} does not have a register function"
+                        )
 
     def register_checker(self, checker: BaseChecker) -> None:
         """Registers a checker in the PyGuts instance.
@@ -94,3 +105,14 @@ class PyGuts(ASTWalker):
         """
 
         logger.debug(f"Registering checker: '{checker.name}'...")
+        self._checkers[checker.name].append(checker)
+
+
+    def get_checkers(self) -> List[BaseChecker]:
+        """Return all available checkers as an ordered list.
+
+        Returns:
+            List[BaseChecker]: An ordered list of all registered checkers.
+        """
+
+        return sorted(c for _checkers in self._checkers.values() for c in _checkers)

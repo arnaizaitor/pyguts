@@ -22,7 +22,7 @@ from pyguts.logger.logger import logger  # noqa: E402
 class TemplateChecker(BaseChecker):
     """Checks for constants in comparisons."""
 
-    name = "template-Checker"
+    name = "template-checker"
     msgs = {
         "I9999": (
             "Message.",
@@ -46,8 +46,9 @@ class TemplateChecker(BaseChecker):
             confidence=HIGH,
         )
 
-    def register(self, guts: PyGuts) -> None:
-        guts.register_checker(TemplateChecker())
-
     def check(self) -> None:
         logger.debug("Template checker is running...")
+
+
+def register(guts: PyGuts) -> None:
+    guts.register_checker(TemplateChecker())
