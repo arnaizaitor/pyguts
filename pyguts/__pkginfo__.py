@@ -8,7 +8,7 @@ TODO: Update via tbump, do not modify.
 
 from __future__ import annotations
 
-__version__ = "0.1.0"
+__version__ = "0.1"
 
 
 def get_numversion_from_version(v: str) -> tuple[int, int, int]:

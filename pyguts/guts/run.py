@@ -46,9 +46,6 @@ class Run:
             print(full_version)
             sys.exit(0)
 
-        # Initialize PyGuts instance
-        self.guts = guts = self.GutsClass()
-
         # Set directory path and recursive option
         self.directory_to_check = parsed_args.dir
         self.recursive = parsed_args.recursive
@@ -57,7 +54,11 @@ class Run:
         if os.path.isdir(self.directory_to_check) and os.path.exists(
             self.directory_to_check
         ):
-            guts.check(self.directory_to_check, recursive=self.recursive)
+            # Initialize PyGuts instance
+            self.guts = guts = self.GutsClass(self.directory_to_check)
+
+            # Run PyGuts
+            guts.guts(recursive=self.recursive)
         else:
             logger.error(
                 f"Directory '{self.directory_to_check}' does not exist or is not valid."
