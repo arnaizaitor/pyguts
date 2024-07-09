@@ -9,6 +9,7 @@ from typing import (
     Union,
 )
 
+
 @dataclass
 class ModuleASTs:
     """
@@ -30,6 +31,7 @@ MessageTypesFullName = Literal[
     "unacomplished",
 ]
 
+
 class ExtraMessageOptions(TypedDict, total=False):
     """All allowed keys in the extra options for message definitions."""
 
@@ -38,6 +40,7 @@ class ExtraMessageOptions(TypedDict, total=False):
     minversion: tuple[int, int]
     shared: bool
     default_enabled: bool
+
 
 MessageDefinitionTuple = Union[
     Tuple[str, str, str],

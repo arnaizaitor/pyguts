@@ -12,24 +12,24 @@ class ASTWalker:
         self.base_dir = base_dir
 
     def _discover_files(self, recursive: bool = True) -> List[str]:
-            """
-            Recursively finds all Python files (.py) in the specified base directory and its subdirectories.
+        """
+        Recursively finds all Python files (.py) in the specified base directory and its subdirectories.
 
-            Args:
-                recursive (bool, optional): Whether to search recursively in subdirectories. Default is True.
+        Args:
+            recursive (bool, optional): Whether to search recursively in subdirectories. Default is True.
 
-            Returns:
-                List[str]: A list of absolute paths to the Python files found.
-            """
+        Returns:
+            List[str]: A list of absolute paths to the Python files found.
+        """
 
-            python_files = []
-            for root, _, files in os.walk(self.base_dir, topdown=True):
-                for file in files:
-                    if file.endswith(".py"):
-                        python_files.append(os.path.join(root, file))
-                if not recursive:
-                    break  # Stop walking subdirectories if recursive=False
-            return python_files
+        python_files = []
+        for root, _, files in os.walk(self.base_dir, topdown=True):
+            for file in files:
+                if file.endswith(".py"):
+                    python_files.append(os.path.join(root, file))
+            if not recursive:
+                break  # Stop walking subdirectories if recursive=False
+        return python_files
 
     def _get_ast(self, filename: str) -> ModuleASTs:
         """
