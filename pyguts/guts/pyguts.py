@@ -67,7 +67,9 @@ class PyGuts(ASTWalker):
 
         for filename in os.listdir(os.path.join(PYGUTS_HOME, "pyguts", "checkers")):
             base, extension = os.path.splitext(filename)
-            if extension in PY_EXTS and not (base.startswith("__") and base.endswith("__")):
+            if extension in PY_EXTS and not (
+                base.startswith("__") and base.endswith("__")
+            ):
                 try:
                     logger.debug(f"Loading checker from file: {filename}")
                     module = astroid.modutils.load_module_from_file(

@@ -11,6 +11,7 @@ from typing import TYPE_CHECKING
 from astroid import nodes
 
 from pyguts.checkers import BaseChecker
+
 # from pyguts.interfaces import HIGH
 
 if TYPE_CHECKING:
@@ -108,7 +109,6 @@ class AbsolutePathChecker(BaseChecker):
     def _evaluate_concatenation(self, left, right):
         # Evaluate the concatenation of two string nodes
         return left.value + right.value
-
 
     def register(self, guts: PyGuts) -> None:
         guts.register_checker(AbsolutePathChecker())

@@ -25,10 +25,12 @@ MSG_TYPES: dict[str, MessageTypesFullName] = {
 }
 MSG_TYPES_LONG: dict[str, str] = {v: k for k, v in MSG_TYPES.items()}
 
+
 def _get_pyguts_home() -> str:
     """Return the pyguts home."""
     return os.path.abspath(
         os.path.join(os.path.dirname(os.path.abspath(__file__)), os.path.pardir)
     )
+
 
 PYGUTS_HOME = _get_pyguts_home()
