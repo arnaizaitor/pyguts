@@ -44,6 +44,7 @@ class PyGuts(ASTWalker):
 
         checkers = self.get_checkers()
         for checker in checkers:
+            # TODO: Only if checker is enabled
             checker.check()
 
     # TODO: Remove, only for demonstration purposes
