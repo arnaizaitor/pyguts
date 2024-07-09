@@ -17,6 +17,8 @@ MSG_TYPES: dict[str, MessageTypesFullName] = {
 }
 MSG_TYPES_LONG: dict[str, str] = {v: k for k, v in MSG_TYPES.items()}
 
+MAIN_CHECKER_NAME = "base-checker"
+
 full_version = f"""pyguts {__version__}
 astroid {astroid.__version__}
 Python {sys.version}"""
