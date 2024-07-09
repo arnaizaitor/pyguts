@@ -5,6 +5,8 @@ import astroid
 from pyguts.__pkginfo__ import __version__
 from pyguts.gtyping import MessageTypesFullName
 
+MAIN_CHECKER_NAME = "base-checker"
+
 # TODO Redefine message types  # pylint: disable=fixme
 MSG_TYPES: dict[str, MessageTypesFullName] = {
     "I": "info",
@@ -16,8 +18,6 @@ MSG_TYPES: dict[str, MessageTypesFullName] = {
     "G": "unacomplished",
 }
 MSG_TYPES_LONG: dict[str, str] = {v: k for k, v in MSG_TYPES.items()}
-
-MAIN_CHECKER_NAME = "base-checker"
 
 full_version = f"""pyguts {__version__}
 astroid {astroid.__version__}
