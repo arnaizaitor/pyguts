@@ -6,6 +6,11 @@ from pyguts.gtyping import (
     ModuleASTs,
 )
 
+from typing import (
+    Any,
+    List,
+)
+
 
 class BaseChecker(ABC):
     """Abstract Base class for checkers."""
@@ -16,10 +21,11 @@ class BaseChecker(ABC):
     def __init__(self) -> None:
         pass
 
+    # TODO: Check how its done in old_guts
     def add_message(
         self,
         msg_id: str,
-        node: nodes.Node | None = None,
+        node: nodes.NodeNG | None = None,
         args: tuple[str, ...] = (),
         confidence: int = 0,
     ) -> None:
@@ -28,6 +34,11 @@ class BaseChecker(ABC):
     @abstractmethod
     def check(self) -> None:
         """Run the checker and return the messages."""
+        raise NotImplementedError
+
+    @abstractmethod
+    def register(self) -> None:
+        """Register the checker."""
         raise NotImplementedError
 
     def __str__(self) -> str:

@@ -10,7 +10,7 @@ from typing import TYPE_CHECKING
 from astroid import nodes
 
 from pyguts.checkers import BaseChecker
-from pyguts.interfaces import HIGH
+# from pyguts.interfaces import HIGH
 
 if TYPE_CHECKING:
     from pyguts.guts import PyGuts
@@ -103,6 +103,8 @@ class VirtualUnitsChecker(BaseChecker):
                                     confidence=HIGH,
                                 )
 
+    def register(self, guts: PyGuts) -> None:
+        guts.register_checker(VirtualUnitsChecker())
 
-def register(guts: PyGuts) -> None:
-    guts.register_checker(VirtualUnitsChecker(guts))
+    def check(self) -> None:
+        logger.debug("Checking for virtual unit creation...")

@@ -45,3 +45,7 @@ if TYPE_CHECKING:
     from pyguts.guts import PyGuts
 
 from pyguts.logger.logger import logger  # noqa: E402
+
+from pyguts.checkers.base_checker import BaseChecker
+
+__all__ = ["BaseChecker"]

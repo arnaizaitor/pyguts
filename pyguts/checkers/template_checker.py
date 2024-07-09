@@ -10,7 +10,7 @@ from typing import TYPE_CHECKING
 from astroid import nodes
 
 from pyguts.checkers import BaseChecker
-from pyguts.interfaces import HIGH
+# from pyguts.interfaces import HIGH
 
 if TYPE_CHECKING:
     from pyguts.guts import PyGuts
@@ -45,6 +45,8 @@ class TemplateChecker(BaseChecker):
             confidence=HIGH,
         )
 
+    def register(self, guts: PyGuts) -> None:
+        guts.register_checker(TemplateChecker())
 
-def register(guts: PyGuts) -> None:
-    guts.register_checker(TemplateChecker(guts))
+    def check(self) -> None:
+        logger.debug("Template checker is running...")
