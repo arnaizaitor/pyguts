@@ -110,4 +110,3 @@ class VirtualUnitsChecker(BaseChecker):
 
 def register(guts: PyGuts) -> None:
     guts.register_checker(VirtualUnitsChecker())
-

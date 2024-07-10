@@ -39,6 +39,10 @@ class BaseChecker(ABC):
         """Run the checker and return the messages."""
         raise NotImplementedError
 
+    @property
+    def is_enabled(self) -> bool:
+        return self.enabled
+
     def __str__(self) -> str:
         return f"{self.__class__.__name__}({self.filename})"
 

@@ -43,7 +43,13 @@ class ASTWalker:
         """
         with open(filename, "r") as file:
             source_code = file.read()
-        ast_tree = ast.parse(source_code, filename=filename)
+
+        try:
+            ast_tree = ast.parse(source_code, filename=filename)
+        except SyntaxError as e:
+            # Handle parsing errors gracefully
+            print(f"Error parsing {filename}: {e}")
+            ast_tree = None
 
         # Get the relative path of the file from the root directory
         relative_path = os.path.relpath(
@@ -57,7 +63,13 @@ class ASTWalker:
         if module_name.startswith("."):
             module_name = module_name[1:]  # Remove leading dot if present
 
-        return ModuleASTs(module_name=module_name, asts=[ast_tree])
+        return ModuleASTs(
+            module_name=module_name,
+            file_path=relative_path,
+            absolute_path=os.path.abspath(filename),
+            file_name=os.path.basename(filename),
+            asts=[ast_tree] if ast_tree else [],
+        )
 
     def _get_asts(self, directory: str, recursive: bool = True) -> List[ModuleASTs]:
         """

@@ -1,12 +1,11 @@
 from typing import NamedTuple
 from dataclasses import dataclass
 
-__all__ = (
-    "HIGH",
-)
+__all__ = ("HIGH",)
+
 
 @dataclass
-class Confidence():
+class Confidence:
     name: str
     description: str
 

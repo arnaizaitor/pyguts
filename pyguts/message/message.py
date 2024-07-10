@@ -2,7 +2,7 @@ from dataclasses import asdict, dataclass
 
 from pyguts.constants import MSG_TYPES
 from pyguts.interfaces import UNDEFINED, Confidence
-from pyguts.gtyping import MessageLocationTuple
+from pyguts.gtyping import MessageLocationTuple, ExtraMessageOptions
 
 
 @dataclass(unsafe_hash=True)
@@ -23,6 +23,7 @@ class Message:  # pylint: disable=too-many-instance-attributes
     column: int
     end_line: int | None
     end_column: int | None
+    options: ExtraMessageOptions | None = None
 
     def __init__(
         self,
@@ -31,6 +32,7 @@ class Message:  # pylint: disable=too-many-instance-attributes
         location: MessageLocationTuple,
         msg: str,
         confidence: Confidence | None,
+        options: ExtraMessageOptions | None = None,
     ) -> None:
         self.msg_id = msg_id
         self.symbol = symbol
@@ -46,6 +48,10 @@ class Message:  # pylint: disable=too-many-instance-attributes
         self.column = location.column
         self.end_line = location.end_line
         self.end_column = location.end_column
+        self.options = options
+
+    def __repr__(self) -> str:
+        return f"{self.format('{symbol} - {msg_id} - {msg}')}"
 
     def format(self, template: str) -> str:
         """Format the message according to the given template.
