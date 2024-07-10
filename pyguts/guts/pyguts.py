@@ -43,6 +43,7 @@ class PyGuts(ASTWalker):
         self.register_checkers()
 
         checkers = self.get_checkers()
+        logger.debug(f"Registered checkers: {checkers}")
         for checker in checkers:
             # TODO: Only if checker is enabled
             checker.check()
@@ -107,6 +108,19 @@ class PyGuts(ASTWalker):
 
         logger.debug(f"Registering checker: '{checker.name}'...")
         self._checkers[checker.name].append(checker)
+        # TODO: COmplete with oldguts register_checker
+        # if hasattr(checker, "msgs"):
+        #     self.msgs_store.register_messages_from_checker(checker)
+        #     for message in checker.messages:
+        #         if not message.default_enabled:
+        #             logger.debug(
+        #                 f"Disabling message {message.msgid} from checker {checker.name}"
+        #             )
+        #             self.disable(message.msgid)
+        # # Register the checker, but disable all of its messages.
+        # if not getattr(checker, "enabled", True):
+        #     logger.debug(f"Disabling checker {checker.name}")
+        #     self.disable(checker.name)
 
 
     def get_checkers(self) -> List[BaseChecker]:

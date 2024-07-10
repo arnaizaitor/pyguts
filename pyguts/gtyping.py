@@ -1,6 +1,7 @@
 import ast
 
 from dataclasses import dataclass
+
 from typing import (
     List,
     Literal,
@@ -31,7 +32,6 @@ MessageTypesFullName = Literal[
     "unacomplished",
 ]
 
-
 class ExtraMessageOptions(TypedDict, total=False):
     """All allowed keys in the extra options for message definitions."""
 
@@ -46,3 +46,16 @@ MessageDefinitionTuple = Union[
     Tuple[str, str, str],
     Tuple[str, str, str, ExtraMessageOptions],
 ]
+
+@dataclass
+class MessageLocationTuple():
+    """Tuple with information about the location of a to-be-displayed message."""
+
+    abspath: str
+    path: str
+    module: str
+    obj: str
+    line: int
+    column: int
+    end_line: int | None = None
+    end_column: int | None = None

@@ -34,6 +34,7 @@ class TemplateChecker(BaseChecker):
         )
     }
 
+    enabled = False
     options = ()
 
     valid_magic_vals = (0, -1, 1, "", "__main__")

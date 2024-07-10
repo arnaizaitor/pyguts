@@ -19,6 +19,7 @@ class BaseChecker(ABC):
 
     name = "base-checker"
     msgs = {}
+    enabled = True
 
     def __init__(self) -> None:
         pass
