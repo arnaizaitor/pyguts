@@ -1,4 +1,3 @@
-from typing import NamedTuple
 from dataclasses import dataclass
 
 __all__ = ("HIGH",)
