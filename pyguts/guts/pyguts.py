@@ -10,7 +10,8 @@ from pyguts.constants import PY_EXTS, PYGUTS_HOME
 from pyguts.utils.ast_walker import ASTWalker
 from pyguts.gtyping import ModuleASTs
 from pyguts.logger.logger import logger  # noqa: E402
-from pyguts.message.message_id_store import MessageIdStore  # noqa: E402
+from pyguts.message.message_id_store import MessageIdStore
+from pyguts.utils.file_state_handler import FileStateHandler
 
 
 # pylint: disable=too-many-instance-attributes,too-many-public-methods
@@ -24,6 +25,7 @@ class PyGuts(
         self.base_dir = base_dir
         self._message_id_store: MessageIdStore = MessageIdStore()
         self._checkers: defaultdict[str, list[checkers.BaseChecker]] = defaultdict(list)
+        self._file_state_handler: FileStateHandler = FileStateHandler()
 
     def guts(self, recursive: bool = True) -> None:
         """
@@ -36,6 +38,8 @@ class PyGuts(
         """
 
         module_asts: Iterable[ModuleASTs] = self._get_asts(self.base_dir, recursive)
+        file_state_handler: FileStateHandler = self._file_state_handler
+
         logger.debug(f"Found {len(module_asts)} modules to check")
 
         self.register_checkers()
@@ -46,6 +50,7 @@ class PyGuts(
         for module_ast in module_asts:
             logger.debug(f"Checking module: {module_ast}")
             # TODO set current module info as attributes of some class
+            file_state_handler.set_current_file(module_ast)
             self.walk(module_ast.asts[0])
 
     def register_checkers(self) -> None:
@@ -95,23 +100,24 @@ class PyGuts(
         visits = self.visit_events
         leaves = self.leave_events
 
-        # Register visit methods
-        for member in dir(checker):
-            cid = member[6:]
-            if cid == "default":
-                continue
-            if member.startswith("visit_"):
-                visit = getattr(checker, member)
-                if callable(visit):
-                    logger.debug(f"Registering visit method: {member} for checker: {checker.name}")
-                    visits[cid].append(visit)
-                    vcids.add(cid)
-            if member.startswith("leave_"):
-                leave = getattr(checker, member)
-                if callable(leave):
-                    logger.debug(f"Registering leave method: {member} for checker: {checker.name}")
-                    leaves[cid].append(leave)
-                    lcids.add(cid)
+        if checker.is_enabled:
+            # Register visit methods
+            for member in dir(checker):
+                cid = member[6:]
+                if cid == "default":
+                    continue
+                if member.startswith("visit_"):
+                    visit = getattr(checker, member)
+                    if callable(visit):
+                        logger.debug(f"Registering visit method: {member} for checker: {checker.name}")
+                        visits[cid].append(visit)
+                        vcids.add(cid)
+                if member.startswith("leave_"):
+                    leave = getattr(checker, member)
+                    if callable(leave):
+                        logger.debug(f"Registering leave method: {member} for checker: {checker.name}")
+                        leaves[cid].append(leave)
+                        lcids.add(cid)
 
 
     def get_checkers(self) -> List[BaseChecker]:

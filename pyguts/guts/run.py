@@ -6,7 +6,7 @@ from collections.abc import Sequence
 from pyguts.guts.pyguts import PyGuts
 from pyguts.constants import full_version
 
-from pyguts.logger.logger import logger  # noqa: E402
+from pyguts.logger.logger import logger
 
 
 class Run:
@@ -56,6 +56,8 @@ class Run:
         ):
             # Initialize PyGuts instance
             self.guts = guts = self.GutsClass(self.directory_to_check)
+            # Initialize FileStateHandler instance
+            logger.debug(f"Initializing FileStateHandler...")
 
             # Run PyGuts
             guts.guts(recursive=self.recursive)

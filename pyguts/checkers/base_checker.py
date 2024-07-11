@@ -2,12 +2,14 @@ from astroid import nodes
 from abc import ABC, abstractmethod
 
 from pyguts.constants import MAIN_CHECKER_NAME
+from pyguts.message.message import Message
 from pyguts.message.message_store import MessageStore
 from pyguts.gtyping import (
     MessageDefinitionTuple,
     MessageLocationTuple,
     ModuleASTs,
 )
+from pyguts.utils.file_state_handler import FileStateHandler
 
 from typing import (
     Any,
@@ -28,6 +30,7 @@ class BaseChecker(ABC):
         """Checker instances should have the guts as argument."""
 
         self.__message_store: MessageStore = MessageStore()
+        self.__file_state_handler: FileStateHandler = FileStateHandler()
 
         if self.name is not None:
             self.name = self.name.lower()
@@ -40,6 +43,9 @@ class BaseChecker(ABC):
         args: tuple[str, ...] = (),
         confidence: int = 0,
     ) -> None:
+
+        file_state_handler: FileStateHandler = self.__file_state_handler
+        line = col_offset = end_lineno = end_col_offset = None
 
         if node:
             if node.position:
@@ -62,12 +68,24 @@ class BaseChecker(ABC):
                     end_col_offset = node.end_col_offset
 
         location: MessageLocationTuple = (
-            self.filename,
+            file_state_handler.absolute_path,
+            file_state_handler.file_path,
+            file_state_handler.module_name,
+            str(node),
             line,
             col_offset,
             end_lineno,
             end_col_offset,
         )
+
+        # TODO
+        # message: Message = Message(
+        #     msg_id,
+        #     self.msgs[msg_id][1],
+        #     location,
+        #     self.msgs[msg_id][0].format(*args),
+        #     confidence,
+        # )
 
     @abstractmethod
     def check(self) -> None:
