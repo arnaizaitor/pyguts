@@ -40,7 +40,9 @@ class AbsolutePathChecker(BaseChecker):
 
     def visit_assign(self, node: nodes.Assign) -> None:
         # Check all the assigned values in the node
-        logger.debug(f"Visiting assignment node: {node} with type: {type(node)} and value: {node.value}")
+        logger.debug(
+            f"Visiting assignment node: {node} with type: {type(node)} and value: {node.value}"
+        )
         for assigned_value in (
             node.value.elts
             if isinstance(node.value, (nodes.Tuple, nodes.List))

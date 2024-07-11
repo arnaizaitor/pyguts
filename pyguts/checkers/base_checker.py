@@ -25,7 +25,6 @@ class BaseChecker(ABC):
     enabled = True
     __message_store: MessageStore = None
 
-
     def __init__(self) -> None:
         """Checker instances should have the guts as argument."""
 

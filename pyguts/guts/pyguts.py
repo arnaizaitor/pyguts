@@ -109,16 +109,19 @@ class PyGuts(
                 if member.startswith("visit_"):
                     visit = getattr(checker, member)
                     if callable(visit):
-                        logger.debug(f"Registering visit method: {member} for checker: {checker.name}")
+                        logger.debug(
+                            f"Registering visit method: {member} for checker: {checker.name}"
+                        )
                         visits[cid].append(visit)
                         vcids.add(cid)
                 if member.startswith("leave_"):
                     leave = getattr(checker, member)
                     if callable(leave):
-                        logger.debug(f"Registering leave method: {member} for checker: {checker.name}")
+                        logger.debug(
+                            f"Registering leave method: {member} for checker: {checker.name}"
+                        )
                         leaves[cid].append(leave)
                         lcids.add(cid)
-
 
     def get_checkers(self) -> List[BaseChecker]:
         """Return all available checkers as an ordered list.

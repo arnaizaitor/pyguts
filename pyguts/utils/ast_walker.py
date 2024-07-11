@@ -123,7 +123,9 @@ class ASTWalker:
         visit_events: Sequence[AstCallback] = self.visit_events.get(cid, ())
         leave_events: Sequence[AstCallback] = self.leave_events.get(cid, ())
 
-        logger.debug(f"Running walk on node: {ast_node.__class__.__name__.lower()}, node: {ast_node}")
+        logger.debug(
+            f"Running walk on node: {ast_node.__class__.__name__.lower()}, node: {ast_node}"
+        )
         if not (len(visit_events) == 0 and len(leave_events) == 0):
             logger.debug(f"Visit events: {visit_events}, length: {len(visit_events)}")
 
@@ -143,4 +145,3 @@ class ASTWalker:
         except Exception:
             logger.error("Error walking the AST", exc_info=True)
             raise
-

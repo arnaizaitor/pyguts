@@ -4,6 +4,7 @@ from pyguts.gtyping import ModuleASTs
 
 from typing import Tuple
 
+
 @singleton
 class FileStateHandler:
     """Singleton class to store and manage currently analyzed files."""
@@ -26,4 +27,9 @@ class FileStateHandler:
     @classmethod
     def get_current_file(cls) -> Tuple[str, str, str, str]:
         """Return the information about the current analyzed file."""
-        return (cls().file_name, cls().file_path, cls().absolute_path, cls().module_name)
+        return (
+            cls().file_name,
+            cls().file_path,
+            cls().absolute_path,
+            cls().module_name,
+        )
