@@ -1,7 +1,7 @@
 from dataclasses import asdict, dataclass
 
 from pyguts.constants import MSG_TYPES
-from pyguts.interfaces import UNDEFINED, Confidence
+from pyguts.interfaces import Confidence
 from pyguts.gtyping import MessageLocationTuple, ExtraMessageOptions
 
 

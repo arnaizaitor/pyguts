@@ -11,11 +11,7 @@ from typing import TYPE_CHECKING
 from astroid import nodes
 
 from pyguts.checkers import BaseChecker
-
-# from pyguts.interfaces import HIGH
-
-if TYPE_CHECKING:
-    from pyguts.guts import PyGuts
+from pyguts.interfaces import HIGH
 
 from pyguts.logger.logger import logger  # noqa: E402
 
@@ -44,6 +40,7 @@ class AbsolutePathChecker(BaseChecker):
 
     def visit_assign(self, node: nodes.Assign) -> None:
         # Check all the assigned values in the node
+        logger.debug(f"Visiting assignment node: {node} with type: {type(node)} and value: {node.value}")
         for assigned_value in (
             node.value.elts
             if isinstance(node.value, (nodes.Tuple, nodes.List))

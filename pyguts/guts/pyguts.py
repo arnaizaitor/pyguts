@@ -10,19 +10,19 @@ from pyguts.constants import PY_EXTS, PYGUTS_HOME
 from pyguts.utils.ast_walker import ASTWalker
 from pyguts.gtyping import ModuleASTs
 from pyguts.logger.logger import logger  # noqa: E402
-from pyguts.message.message_store import MessageStore  # noqa: E402
 from pyguts.message.message_id_store import MessageIdStore  # noqa: E402
 
 
 # pylint: disable=too-many-instance-attributes,too-many-public-methods
-class PyGuts(ASTWalker):
+class PyGuts(
+    ASTWalker,
+):
     """Checks Python modules for Unacomplished Tool Specifications (GUTS)"""
 
     def __init__(self, base_dir: str) -> None:
+        super().__init__(base_dir=base_dir)  # Initialize ASTWalker attributes
         self.base_dir = base_dir
-        self.message_store: MessageStore = MessageStore()
         self._message_id_store: MessageIdStore = MessageIdStore()
-
         self._checkers: defaultdict[str, list[checkers.BaseChecker]] = defaultdict(list)
 
     def guts(self, recursive: bool = True) -> None:
@@ -36,39 +36,17 @@ class PyGuts(ASTWalker):
         """
 
         module_asts: Iterable[ModuleASTs] = self._get_asts(self.base_dir, recursive)
+        logger.debug(f"Found {len(module_asts)} modules to check")
 
         self.register_checkers()
 
         checkers = self.get_checkers()
         logger.debug(f"Registered checkers: {checkers}")
-        for checker in checkers:
-            if checker.is_enabled:
-                logger.debug(f"Running checker: {checker.name}")
-                checker.check()
 
-    # # TODO: Remove, only for demonstration purposes
-    # def _print_classes_functions_methods(self, tree: ast.Module) -> None:
-    #     """
-    #     Prints classes, functions, and methods found in the given AST (Abstract Syntax Tree).
-
-    #     Args:
-    #         tree (ast.Module): The Abstract Syntax Tree of a Python module.
-    #     """
-
-    #     for node in tree.body:
-    #         if isinstance(node, ast.ClassDef):
-    #             print(f"  Class: {node.name}")
-    #             for item in node.body:
-    #                 if isinstance(item, ast.FunctionDef):
-    #                     print(f"    Function: {item.name}")
-    #                 elif isinstance(item, ast.AsyncFunctionDef):
-    #                     print(f"    Async Function: {item.name}")
-    #                 elif isinstance(item, ast.MethodDef):
-    #                     print(f"    Method: {item.name}")
-    #         elif isinstance(node, ast.FunctionDef):
-    #             print(f"  Function: {node.name}")
-    #         elif isinstance(node, ast.AsyncFunctionDef):
-    #             print(f"  Async Function: {node.name}")
+        for module_ast in module_asts:
+            logger.debug(f"Checking module: {module_ast}")
+            # TODO set current module info as attributes of some class
+            self.walk(module_ast.asts[0])
 
     def register_checkers(self) -> None:
         """Registers all checkers in pyguts.checkers module"""
@@ -111,6 +89,30 @@ class PyGuts(ASTWalker):
         if hasattr(checker, "msgs"):
             for msg_id, msg in checker.msgs.items():
                 self._message_id_store.add_msgid_and_symbol(msg_id, msg[1])
+
+        vcids: set[str] = set()
+        lcids: set[str] = set()
+        visits = self.visit_events
+        leaves = self.leave_events
+
+        # Register visit methods
+        for member in dir(checker):
+            cid = member[6:]
+            if cid == "default":
+                continue
+            if member.startswith("visit_"):
+                visit = getattr(checker, member)
+                if callable(visit):
+                    logger.debug(f"Registering visit method: {member} for checker: {checker.name}")
+                    visits[cid].append(visit)
+                    vcids.add(cid)
+            if member.startswith("leave_"):
+                leave = getattr(checker, member)
+                if callable(leave):
+                    logger.debug(f"Registering leave method: {member} for checker: {checker.name}")
+                    leaves[cid].append(leave)
+                    lcids.add(cid)
+
 
     def get_checkers(self) -> List[BaseChecker]:
         """Return all available checkers as an ordered list.

@@ -2,9 +2,10 @@ from astroid import nodes
 from abc import ABC, abstractmethod
 
 from pyguts.constants import MAIN_CHECKER_NAME
-
+from pyguts.message.message_store import MessageStore
 from pyguts.gtyping import (
     MessageDefinitionTuple,
+    MessageLocationTuple,
     ModuleASTs,
 )
 
@@ -20,9 +21,16 @@ class BaseChecker(ABC):
     name = "base-checker"
     msgs = {}
     enabled = True
+    __message_store: MessageStore = None
+
 
     def __init__(self) -> None:
-        pass
+        """Checker instances should have the guts as argument."""
+
+        self.__message_store: MessageStore = MessageStore()
+
+        if self.name is not None:
+            self.name = self.name.lower()
 
     # TODO: Check how its done in old_guts
     def add_message(
@@ -32,7 +40,34 @@ class BaseChecker(ABC):
         args: tuple[str, ...] = (),
         confidence: int = 0,
     ) -> None:
-        self.messages.append((msg_id, node, args, confidence))
+
+        if node:
+            if node.position:
+                if not line:
+                    line = node.position.lineno
+                if not col_offset:
+                    col_offset = node.position.col_offset
+                if not end_lineno:
+                    end_lineno = node.position.end_lineno
+                if not end_col_offset:
+                    end_col_offset = node.position.end_col_offset
+            else:
+                if not line:
+                    line = node.fromlineno
+                if not col_offset:
+                    col_offset = node.col_offset
+                if not end_lineno:
+                    end_lineno = node.end_lineno
+                if not end_col_offset:
+                    end_col_offset = node.end_col_offset
+
+        location: MessageLocationTuple = (
+            self.filename,
+            line,
+            col_offset,
+            end_lineno,
+            end_col_offset,
+        )
 
     @abstractmethod
     def check(self) -> None:

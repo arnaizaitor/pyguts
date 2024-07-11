@@ -10,11 +10,7 @@ from typing import TYPE_CHECKING
 from astroid import nodes
 
 from pyguts.checkers import BaseChecker
-
-# from pyguts.interfaces import HIGH
-
-if TYPE_CHECKING:
-    from pyguts.guts import PyGuts
+from pyguts.interfaces import HIGH
 
 from pyguts.logger.logger import logger  # noqa: E402
 

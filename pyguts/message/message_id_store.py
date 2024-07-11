@@ -1,3 +1,5 @@
+from typing import NoReturn
+
 from pyguts.exceptions import (
     UnknownMessageError,
     InvalidMessageError,

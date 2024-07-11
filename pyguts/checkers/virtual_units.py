@@ -10,11 +10,7 @@ from typing import TYPE_CHECKING
 from astroid import nodes
 
 from pyguts.checkers import BaseChecker
-
-# from pyguts.interfaces import HIGH
-
-if TYPE_CHECKING:
-    from pyguts.guts import PyGuts
+from pyguts.interfaces import HIGH
 
 from pyguts.logger.logger import logger  # noqa: E402
 
@@ -40,6 +36,7 @@ class VirtualUnitsChecker(BaseChecker):
     options = ()
 
     def visit_call(self, node: nodes.Call) -> None:
+        logger.debug("Visiting call node")
         if isinstance(node.func, nodes.Attribute):
             if isinstance(node.func.expr, nodes.Name) and node.func.expr.name in [
                 "subprocess",
