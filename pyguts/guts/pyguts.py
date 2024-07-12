@@ -14,7 +14,7 @@ from pyguts.message.message_store import MessageStore
 from pyguts.message.message_id_store import MessageIdStore
 from pyguts.utils.file_state_handler import FileStateHandler
 
-from pprint import (pprint, pformat)
+from pprint import pprint, pformat
 
 
 # pylint: disable=too-many-instance-attributes,too-many-public-methods
@@ -55,10 +55,14 @@ class PyGuts(
             logger.warning(f"Checking module: {module_ast.module_name}")
             # TODO set current module info as attributes of some class
             file_state_handler.set_current_file(module_ast)
-            logger.critical(f"Current module info: {file_state_handler.get_current_file()}")
+            logger.critical(
+                f"Current module info: {file_state_handler.get_current_file()}"
+            )
             self.walk(module_ast.asts[0])
 
-        logger.info(f"Messages stored: {pformat(self._message_store.get_messages_sorted_by_location())}")
+        logger.info(
+            f"Messages stored: {pformat(self._message_store.get_messages_sorted_by_location())}"
+        )
 
     def register_checkers(self) -> None:
         """Registers all checkers in pyguts.checkers module"""
