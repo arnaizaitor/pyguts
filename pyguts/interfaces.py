@@ -10,4 +10,5 @@ class Confidence:
 
 
 # Warning Certainties
+UNDEFINED = Confidence("UNDEFINED", "Undefined certainty.")
 HIGH = Confidence("HIGH", "Warning that is not based on inference result.")

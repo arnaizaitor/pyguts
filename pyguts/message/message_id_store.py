@@ -5,7 +5,10 @@ from pyguts.exceptions import (
     InvalidMessageError,
 )
 
+from pyguts.utils.utils import singleton
 
+
+@singleton
 class MessageIdStore:
     """The MessageIdStore store MessageId and make sure that there is a 1-1 relation
     between msgid and symbol.

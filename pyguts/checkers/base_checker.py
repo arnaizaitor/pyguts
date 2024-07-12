@@ -4,12 +4,18 @@ from abc import ABC, abstractmethod
 from pyguts.constants import MAIN_CHECKER_NAME
 from pyguts.message.message import Message
 from pyguts.message.message_store import MessageStore
+from pyguts.message.message_id_store import MessageIdStore
 from pyguts.gtyping import (
     MessageDefinitionTuple,
     MessageLocationTuple,
     ModuleASTs,
 )
 from pyguts.utils.file_state_handler import FileStateHandler
+from pyguts.interfaces import (
+    Confidence,
+    HIGH,
+    UNDEFINED,
+)
 
 from typing import (
     Any,
@@ -24,11 +30,13 @@ class BaseChecker(ABC):
     msgs = {}
     enabled = True
     __message_store: MessageStore = None
+    __message_id_store: MessageIdStore = None
 
     def __init__(self) -> None:
         """Checker instances should have the guts as argument."""
 
         self.__message_store: MessageStore = MessageStore()
+        self.__message_id_store: MessageIdStore = MessageIdStore()
         self.__file_state_handler: FileStateHandler = FileStateHandler()
 
         if self.name is not None:
@@ -40,7 +48,7 @@ class BaseChecker(ABC):
         msg_id: str,
         node: nodes.NodeNG | None = None,
         args: tuple[str, ...] = (),
-        confidence: int = 0,
+        confidence: Confidence = UNDEFINED,
     ) -> None:
 
         file_state_handler: FileStateHandler = self.__file_state_handler
@@ -77,14 +85,15 @@ class BaseChecker(ABC):
             end_col_offset,
         )
 
-        # TODO
-        # message: Message = Message(
-        #     msg_id,
-        #     self.msgs[msg_id][1],
-        #     location,
-        #     self.msgs[msg_id][0].format(*args),
-        #     confidence,
-        # )
+        message: Message = Message(
+            msg_id,
+            self.__message_id_store.get_symbol(msg_id),
+            location,
+            self.msgs[msg_id][0].format(*args),  # Message text with arguments resolved
+            confidence,
+        )
+
+        self.__message_store.add_message(message)
 
     @abstractmethod
     def check(self) -> None:

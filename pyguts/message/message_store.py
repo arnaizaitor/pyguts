@@ -21,11 +21,6 @@ class MessageStore:
 
     def add_message(self, message: Message) -> None:
         """Add a message to the store."""
-        if (
-            message.msg_id in self._message_store
-            or message.symbol in self._message_store
-        ):
-            raise ValueError("Message ID or symbol already exists in the store.")
 
         logger.debug(f"Adding message to store: {message}")
         self._message_store.append(message)
