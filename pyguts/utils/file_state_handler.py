@@ -17,19 +17,19 @@ class FileStateHandler:
         self.file_name: str = ""
 
     @classmethod
-    def set_current_file(cls, module_ast: ModuleASTs) -> None:
+    def set_current_file(self, module_ast: ModuleASTs) -> None:
         """Set the currently analyzed file."""
-        cls().module_name = module_ast.module_name
-        cls().file_path = module_ast.file_path
-        cls().absolute_path = module_ast.absolute_path
-        cls().file_name = module_ast.file_name
+        self.module_name = module_ast.module_name
+        self.file_path = module_ast.file_path
+        self.absolute_path = module_ast.absolute_path
+        self.file_name = module_ast.file_name
 
     @classmethod
-    def get_current_file(cls) -> Tuple[str, str, str, str]:
+    def get_current_file(self) -> Tuple[str, str, str, str]:
         """Return the information about the current analyzed file."""
         return (
-            cls().file_name,
-            cls().file_path,
-            cls().absolute_path,
-            cls().module_name,
+            self.file_name,
+            self.file_path,
+            self.absolute_path,
+            self.module_name,
         )

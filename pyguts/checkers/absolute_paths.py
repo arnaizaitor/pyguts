@@ -22,17 +22,17 @@ class AbsolutePathChecker(BaseChecker):
     name = "absolute-path-checker"
     msgs = {
         "G0001": (
-            "Absolute path '%s' assigned to a variable, consider using a relative path or receive the path as script argument.",
+            "Absolute path '{}' assigned to a variable, consider using a relative path or receive the path as script argument.",
             "absolute-path-assigned",
             "Using absolute paths in assignments can lead to issues with portability and flexibility of the code.",
         ),
         "G0002": (
-            "Absolute path '%s' used as an argument, consider using a relative path or receive the path as script argument.",
+            "Absolute path '{}' used as an argument, consider using a relative path or receive the path as script argument.",
             "absolute-path-used",
             "Using absolute paths as function arguments can lead to issues with portability and flexibility of the code.",
         ),
         "G0003": (
-            "Concatenation results in absolute path '%s'. Consider using a relative path or a configuration method.",
+            "Concatenation results in absolute path '{}'. Consider using a relative path or a configuration method.",
             "absolute-path-from-binop",
             "Concatenating strings to form absolute paths can lead to issues with portability and flexibility of the code.",
         ),

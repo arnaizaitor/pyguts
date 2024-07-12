@@ -17,6 +17,8 @@ from pyguts.interfaces import (
     UNDEFINED,
 )
 
+from pyguts.logger.logger import logger
+
 from typing import (
     Any,
     List,
@@ -45,7 +47,7 @@ class BaseChecker(ABC):
     # TODO: Check how its done in old_guts
     def add_message(
         self,
-        msg_id: str,
+        msg_symbol: str,
         node: nodes.NodeNG | None = None,
         args: tuple[str, ...] = (),
         confidence: Confidence = UNDEFINED,
@@ -74,25 +76,28 @@ class BaseChecker(ABC):
                 if not end_col_offset:
                     end_col_offset = node.end_col_offset
 
-        location: MessageLocationTuple = (
-            file_state_handler.absolute_path,
-            file_state_handler.file_path,
-            file_state_handler.module_name,
-            str(node),
-            line,
-            col_offset,
-            end_lineno,
-            end_col_offset,
+        location: MessageLocationTuple = MessageLocationTuple(
+            abspath=file_state_handler.get_current_file()[2],
+            path=file_state_handler.get_current_file()[1],
+            module=file_state_handler.get_current_file()[3],
+            obj=str(node),
+            line=line,
+            column=col_offset,
+            end_line=end_lineno,
+            end_column=end_col_offset,
         )
+
+        msg_id: str = self.__message_id_store.get_msgid(msg_symbol)
 
         message: Message = Message(
             msg_id,
-            self.__message_id_store.get_symbol(msg_id),
+            msg_symbol,
             location,
             self.msgs[msg_id][0].format(*args),  # Message text with arguments resolved
             confidence,
         )
 
+        logger.critical(f"Module: {file_state_handler.module_name}")
         self.__message_store.add_message(message)
 
     @abstractmethod

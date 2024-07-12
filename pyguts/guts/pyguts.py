@@ -9,9 +9,12 @@ from pyguts.checkers import BaseChecker
 from pyguts.constants import PY_EXTS, PYGUTS_HOME
 from pyguts.utils.ast_walker import ASTWalker
 from pyguts.gtyping import ModuleASTs
-from pyguts.logger.logger import logger  # noqa: E402
+from pyguts.logger.logger import logger
+from pyguts.message.message_store import MessageStore
 from pyguts.message.message_id_store import MessageIdStore
 from pyguts.utils.file_state_handler import FileStateHandler
+
+from pprint import (pprint, pformat)
 
 
 # pylint: disable=too-many-instance-attributes,too-many-public-methods
@@ -23,6 +26,7 @@ class PyGuts(
     def __init__(self, base_dir: str) -> None:
         super().__init__(base_dir=base_dir)  # Initialize ASTWalker attributes
         self.base_dir = base_dir
+        self._message_store: MessageStore = MessageStore()
         self._message_id_store: MessageIdStore = MessageIdStore()
         self._checkers: defaultdict[str, list[checkers.BaseChecker]] = defaultdict(list)
         self._file_state_handler: FileStateHandler = FileStateHandler()
@@ -48,10 +52,13 @@ class PyGuts(
         logger.debug(f"Registered checkers: {checkers}")
 
         for module_ast in module_asts:
-            logger.debug(f"Checking module: {module_ast}")
+            logger.warning(f"Checking module: {module_ast.module_name}")
             # TODO set current module info as attributes of some class
             file_state_handler.set_current_file(module_ast)
+            logger.critical(f"Current module info: {file_state_handler.get_current_file()}")
             self.walk(module_ast.asts[0])
+
+        logger.info(f"Messages stored: {pformat(self._message_store.get_messages_sorted_by_location())}")
 
     def register_checkers(self) -> None:
         """Registers all checkers in pyguts.checkers module"""

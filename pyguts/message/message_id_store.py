@@ -6,6 +6,7 @@ from pyguts.exceptions import (
 )
 
 from pyguts.utils.utils import singleton
+from pyguts.logger.logger import logger
 
 
 @singleton
@@ -31,7 +32,8 @@ class MessageIdStore:
 
     def get_symbol(self, msgid: str) -> str:
         try:
-            return self.__msgid_to_symbol[msgid.upper()]
+            logger.debug(f"Content of __msgid_to_symbol: {self.__msgid_to_symbol}")
+            return self.__msgid_to_symbol[msgid]
         except KeyError as e:
             msg = f"'{msgid}' is not a message ID stored in the message store."
             raise UnknownMessageError(msg) from e
