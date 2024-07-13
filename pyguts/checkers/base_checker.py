@@ -44,7 +44,6 @@ class BaseChecker(ABC):
         if self.name is not None:
             self.name = self.name.lower()
 
-    # TODO: Check how its done in old_guts
     def add_message(
         self,
         msg_symbol: str,
