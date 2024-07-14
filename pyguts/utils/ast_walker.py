@@ -48,7 +48,9 @@ class ASTWalker:
                 break  # Stop walking subdirectories if recursive=False
         return python_files
 
-    def _discover_all_files(self, recursive: bool = True) -> List[Tuple[str, str, str, str]]:
+    def _discover_all_files(
+        self, recursive: bool = True
+    ) -> List[Tuple[str, str, str, str]]:
         """
         Recursively finds all files in the specified base directory and its subdirectories.
 
@@ -88,7 +90,6 @@ class ASTWalker:
             module_name = module_name[1:]  # Remove leading dot if present
 
         return module_name
-
 
     def _get_ast(self, filename: str) -> ModuleASTs:
         """

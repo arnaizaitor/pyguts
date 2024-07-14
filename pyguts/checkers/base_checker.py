@@ -54,8 +54,7 @@ class BaseChecker(ABC):
         args: tuple[str, ...] = (),
         confidence: Confidence = UNDEFINED,
     ) -> None:
-
-        """ Add a message to the message store. """
+        """Add a message to the message store."""
         raise NotImplementedError
 
     @property
@@ -162,7 +161,7 @@ class NodeChecker(BaseChecker):
 
 
 class FileChecker(BaseChecker):
-    """ Class for File checkers. """
+    """Class for File checkers."""
 
     def __init__(self) -> None:
         super().__init__()
@@ -202,8 +201,9 @@ class FileChecker(BaseChecker):
         """Run the checker over the currently analyzed file and store the raised messages."""
         raise NotImplementedError
 
+
 class FileFinder(BaseChecker):
-    """ Class to find files. """
+    """Class to find files."""
 
     def __init__(self) -> None:
         super().__init__()

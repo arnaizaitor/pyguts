@@ -34,13 +34,13 @@ class ReadmeFinderChecker(FileFinder):
                         self.add_message(
                             msg_symbol="readme-found-empty",
                             filename=file_name,
-                            confidence=HIGH)
+                            confidence=HIGH,
+                        )
                     else:
                         continue
         self.add_message(
-            msg_symbol="no-readme-found",
-            filename=file_name,
-            confidence=HIGH)
+            msg_symbol="no-readme-found", filename=file_name, confidence=HIGH
+        )
 
 
 def register(guts: PyGuts) -> None:

@@ -31,9 +31,15 @@ class PyGuts(
         self._message_id_store: MessageIdStore = MessageIdStore()
         self._file_state_handler: FileStateHandler = FileStateHandler()
 
-        self._node_checkers: defaultdict[str, list[checkers.NodeChecker]] = defaultdict(list)
-        self._file_checkers: defaultdict[str, list[checkers.FileChecker]] = defaultdict(list)
-        self._file_finders: defaultdict[str, list[checkers.FileFinder]] = defaultdict(list)
+        self._node_checkers: defaultdict[str, list[checkers.NodeChecker]] = defaultdict(
+            list
+        )
+        self._file_checkers: defaultdict[str, list[checkers.FileChecker]] = defaultdict(
+            list
+        )
+        self._file_finders: defaultdict[str, list[checkers.FileFinder]] = defaultdict(
+            list
+        )
 
     def guts(self, recursive: bool = True) -> None:
         """
@@ -136,7 +142,9 @@ class PyGuts(
         elif isinstance(checker, FileFinder):
             self._file_finders[checker.name].append(checker)
         else:
-            logger.error(f"Checker {checker.name} is neither a NodeChecker nor a FileChecker nor a FileFinder")
+            logger.error(
+                f"Checker {checker.name} is neither a NodeChecker nor a FileChecker nor a FileFinder"
+            )
 
         # Register message ids and symbols
         if hasattr(checker, "msgs"):
@@ -179,7 +187,9 @@ class PyGuts(
             List[NodeChecker]: An ordered list of all registered NodeCheckers.
         """
 
-        return sorted(c for _checkers in self._node_checkers.values() for c in _checkers)
+        return sorted(
+            c for _checkers in self._node_checkers.values() for c in _checkers
+        )
 
     def get_file_checkers(self) -> List[FileChecker]:
         """Return all available checkers as an ordered list.
@@ -188,7 +198,9 @@ class PyGuts(
             List[FileChecker]: An ordered list of all registered FileCheckers.
         """
 
-        return sorted(c for _checkers in self._file_checkers.values() for c in _checkers)
+        return sorted(
+            c for _checkers in self._file_checkers.values() for c in _checkers
+        )
 
     def get_file_finders(self) -> List[FileFinder]:
         """Return all available FileFinder checkers as an ordered list.
