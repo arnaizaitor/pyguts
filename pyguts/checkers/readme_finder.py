@@ -11,15 +11,11 @@ from typing import Tuple
 class ReadmeFinderChecker(FileFinder):
     """Checker for Readme file existance."""
 
-    name = "readme-finder-checker"
+    name = "readme-finder"
     msgs = {
         "G0006": (
-            "No README file found in the project root.",
+            "No README file found in the project.",
             "no-readme-found",
-        ),
-        "G0007": (
-            "README file is empty.",
-            "readme-found-empty",
         ),
     }
 
@@ -30,19 +26,9 @@ class ReadmeFinderChecker(FileFinder):
         readme_exists = False
         for module_name, rel_path, abs_path, file_name in files_info:
             if file_name.lower() == "readme.md":
-                readme_exists = True
-                # check if readme file is empty
-                with open(abs_path, "r") as readme_file:
-                    if not readme_file.read():
-                        self.add_message(
-                            msg_symbol="readme-found-empty",
-                            filename=file_name,
-                            confidence=HIGH,
-                        )
-                    else:
-                        continue
-        if not readme_exists:
-            self.add_message(msg_symbol="no-readme-found", confidence=HIGH)
+                return
+
+        self.add_message(msg_symbol="no-readme-found", confidence=HIGH)
 
 
 def register(guts: PyGuts) -> None:

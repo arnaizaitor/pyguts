@@ -14,12 +14,8 @@ class RequirementsFinderChecker(FileFinder):
     name = "requirements-finder-checker"
     msgs = {
         "G0008": (
-            "No requirements.txt file found in the project root.",
+            "No requirements.txt file found in the project.",
             "no-requirements-found",
-        ),
-        "G0009": (
-            "Requirements file found at {} is empty.",
-            "requirements-found-empty",
         ),
     }
 
@@ -30,20 +26,9 @@ class RequirementsFinderChecker(FileFinder):
         requirements_exists = False
         for module_name, rel_path, abs_path, file_name in files_info:
             if file_name.lower() == "requirements.txt":
-                requirements_exists = True
-                # check if requirements file is empty
-                with open(abs_path, "r") as requirements_file:
-                    if not requirements_file.read():
-                        self.add_message(
-                            msg_symbol="requirements-found-empty",
-                            filename=file_name,
-                            confidence=HIGH,
-                            args=(rel_path,),
-                        )
-                    else:
-                        continue
-        if not requirements_exists:
-            self.add_message(msg_symbol="no-requirements-found", confidence=HIGH)
+                return
+
+        self.add_message(msg_symbol="no-requirements-found", confidence=HIGH)
 
 
 def register(guts: PyGuts) -> None:
