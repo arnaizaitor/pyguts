@@ -65,7 +65,6 @@ class MessageIdStore:
             if existing_msgid != msgid:
                 self._raise_duplicate_msgid(symbol, msgid, existing_msgid)
         if existing_symbol and existing_symbol != symbol:
-            # See https://github.com/python/mypy/issues/10559
             self._raise_duplicate_symbol(msgid, symbol, existing_symbol)
 
     @staticmethod

@@ -24,10 +24,13 @@ class ReadmeFinderChecker(FileFinder):
     }
 
     def check(self, files_info: List[Tuple[str, str, str, str]]) -> None:
-        logger.debug("Readme file finder is running...")
+        # Empty the current file state
         self._file_state_handler.set_current_file_from_tuple(("", "", "", ""))
+
+        readme_exists = False
         for module_name, rel_path, abs_path, file_name in files_info:
             if file_name.lower() == "readme.md":
+                readme_exists = True
                 # check if readme file is empty
                 with open(abs_path, "r") as readme_file:
                     if not readme_file.read():
@@ -38,9 +41,8 @@ class ReadmeFinderChecker(FileFinder):
                         )
                     else:
                         continue
-        self.add_message(
-            msg_symbol="no-readme-found", filename=file_name, confidence=HIGH
-        )
+        if not readme_exists:
+            self.add_message(msg_symbol="no-readme-found", confidence=HIGH)
 
 
 def register(guts: PyGuts) -> None:
