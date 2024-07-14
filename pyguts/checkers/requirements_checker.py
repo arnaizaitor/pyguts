@@ -9,6 +9,7 @@ from typing import Tuple
 
 import re
 
+
 class RequirementsFileChecker(FileChecker):
     """Checker for Python requirements file content."""
 
@@ -49,14 +50,14 @@ class RequirementsFileChecker(FileChecker):
 
     def check_requirements_structure(self, filename: str) -> bool:
         try:
-            with open(filename, 'r') as file:
+            with open(filename, "r") as file:
                 for line in file:
                     line = line.strip()
-                    if not line or line.startswith('#'):
+                    if not line or line.startswith("#"):
                         continue  # Skip blank lines and comments
 
                     # Validate the structure using regular expression with optional spaces
-                    pattern = r'^[a-zA-Z0-9_-]+\s*==\s*\d+\.\d+\.\d+$'
+                    pattern = r"^[a-zA-Z0-9_-]+\s*==\s*\d+\.\d+\.\d+$"
                     if not re.match(pattern, line):
                         raise ValueError(f"Invalid line: '{line}'")
 

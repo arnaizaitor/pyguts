@@ -9,6 +9,7 @@ from typing import Tuple
 
 import re
 
+
 class ReadmeFileChecker(FileChecker):
     """Checker for Readme file content."""
 
