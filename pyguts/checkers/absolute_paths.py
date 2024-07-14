@@ -6,17 +6,16 @@
 from __future__ import annotations
 
 import os
-from typing import TYPE_CHECKING
 
 from astroid import nodes
 
-from pyguts.checkers import BaseChecker
+from pyguts.checkers import NodeChecker
 from pyguts.interfaces import HIGH
 
 from pyguts.logger.logger import logger  # noqa: E402
 
 
-class AbsolutePathChecker(BaseChecker):
+class AbsolutePathChecker(NodeChecker):
     """Checker for absolute paths in assignments."""
 
     name = "absolute-path-checker"

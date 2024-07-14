@@ -41,11 +41,13 @@ messages nor reports. XXX not true, emit a 07 report !
 
 from typing import TYPE_CHECKING, Literal
 
-if TYPE_CHECKING:
-    from pyguts.guts import PyGuts
-
 from pyguts.logger.logger import logger  # noqa: E402
 
-from pyguts.checkers.base_checker import BaseChecker
+from pyguts.checkers.base_checker import (
+    BaseChecker,
+    NodeChecker,
+    FileChecker,
+    FileFinder,
+)
 
 __all__ = ["BaseChecker"]

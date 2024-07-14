@@ -6,6 +6,7 @@ from collections import defaultdict
 from typing import (
     List,
     Callable,
+    Tuple,
     Union,
 )
 
@@ -47,6 +48,48 @@ class ASTWalker:
                 break  # Stop walking subdirectories if recursive=False
         return python_files
 
+    def _discover_all_files(self, recursive: bool = True) -> List[Tuple[str, str, str, str]]:
+        """
+        Recursively finds all files in the specified base directory and its subdirectories.
+
+        Args:
+            recursive (bool, optional): Whether to search recursively in subdirectories. Default is True.
+
+        Returns:
+            List[Tuple[str, str, str, str]]: A list of tuples containing module name, relative file path, absolute path, and file name.
+        """
+        all_files = []
+        for root, _, files in os.walk(self.base_dir, topdown=True):
+            for file in files:
+                abs_path = os.path.abspath(os.path.join(root, file))
+                rel_path = os.path.relpath(abs_path, start=self.base_dir)
+                module_name = self.get_module_name(rel_path)
+                file_name = os.path.basename(file)
+                all_files.append((module_name, rel_path, abs_path, file_name))
+            if not recursive:
+                break
+        return all_files
+
+    def get_module_name(self, rel_path: str) -> str:
+        """
+        Converts a relative file path to a module name.
+
+        Args:
+            rel_path (str): The relative file path to convert.
+
+        Returns:
+            str: The module name derived from the relative file path.
+        """
+        module_name = os.path.splitext(rel_path)[0].replace(
+            os.path.sep, "."
+        )  # Replace directory separators with dots
+
+        if module_name.startswith("."):
+            module_name = module_name[1:]  # Remove leading dot if present
+
+        return module_name
+
+
     def _get_ast(self, filename: str) -> ModuleASTs:
         """
         Parses the given Python module/file and returns its Abstract Syntax Tree (AST) representation.
@@ -73,11 +116,7 @@ class ASTWalker:
         )  # Adjust the root directory as needed
 
         # Convert relative path to module name (examples.test)
-        module_name = os.path.splitext(relative_path)[0].replace(
-            os.path.sep, "."
-        )  # Replace directory separators with dots
-        if module_name.startswith("."):
-            module_name = module_name[1:]  # Remove leading dot if present
+        module_name = self.get_module_name(relative_path)
 
         return ModuleASTs(
             module_name=module_name,
@@ -87,13 +126,12 @@ class ASTWalker:
             asts=[ast_tree] if ast_tree else [],
         )
 
-    def _get_asts(self, directory: str, recursive: bool = True) -> List[ModuleASTs]:
+    def _get_asts(self, recursive: bool = True) -> List[ModuleASTs]:
         """
         Parses all Python files (.py) found in the base directory and its subdirectories,
         and returns a list of ModuleASTs instances where each instance contains a module path and its ASTs.
 
         Args:
-            directory (str): The root directory to start parsing from.
             recursive (bool, optional): Whether to parse recursively in subdirectories. Default is True.
 
         Returns:

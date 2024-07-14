@@ -51,7 +51,10 @@ class Message:  # pylint: disable=too-many-instance-attributes
         self.options = options
 
     def __repr__(self) -> str:
-        return f"{self.format('{msg_id}:{symbol} - {module}:{line}:{column}: {msg}')}"
+        if self.module and self.line and self.column:
+            return f"{self.msg_id}:{self.symbol} - {self.module}:{self.line}:{self.column}: {self.msg}"
+        else:
+            return f"{self.msg_id}:{self.symbol} - {self.msg}"
 
     def format(self, template: str) -> str:
         """Format the message according to the given template.

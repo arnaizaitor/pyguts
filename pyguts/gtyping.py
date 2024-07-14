@@ -73,9 +73,9 @@ class MessageLocationTuple:
 
     abspath: str
     path: str
-    module: str
     obj: str
-    line: int
-    column: int
+    module: str | None = None
+    line: int | None = None
+    column: int | None = None
     end_line: int | None = None
     end_column: int | None = None

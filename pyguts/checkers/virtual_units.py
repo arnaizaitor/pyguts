@@ -9,13 +9,13 @@ from typing import TYPE_CHECKING
 
 from astroid import nodes
 
-from pyguts.checkers import BaseChecker
+from pyguts.checkers import NodeChecker
 from pyguts.interfaces import HIGH
 
 from pyguts.logger.logger import logger  # noqa: E402
 
 
-class VirtualUnitsChecker(BaseChecker):
+class VirtualUnitsChecker(NodeChecker):
     """Checker for detecting virtual unit creation."""
 
     name = "virtual-units-checker"

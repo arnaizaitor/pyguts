@@ -25,6 +25,11 @@ class FileStateHandler:
         self.file_name = module_ast.file_name
 
     @classmethod
+    def set_current_file_from_tuple(self, file_info_tuple: Tuple[str, str, str, str]) -> None:
+        """Set the currently analyzed file from a tuple."""
+        self.module_name, self.file_path, self.absolute_path, self.file_name = file_info_tuple
+
+    @classmethod
     def get_current_file(self) -> Tuple[str, str, str, str]:
         """Return the information about the current analyzed file."""
         return (
