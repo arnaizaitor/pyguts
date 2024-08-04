@@ -26,7 +26,7 @@ class JsonReporter(BaseReporter):
         messages = self._message_store.get_messages()
         messages_by_location = {}
         for message in messages:
-            if not (message.module and message.line and message.column):
+            if not message.module:
                 messages_by_location.setdefault("General", []).append(message)
             else:
                 messages_by_location.setdefault(f"{message.module}", []).append(message)
