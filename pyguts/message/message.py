@@ -56,6 +56,26 @@ class Message:  # pylint: disable=too-many-instance-attributes
         else:
             return f"{self.msg_id}:{self.symbol} - {self.msg}"
 
+    @property
+    def __dict__(self):
+        return {
+            "msg_id": self.msg_id,
+            "symbol": self.symbol,
+            "msg": self.msg,
+            "C": self.C,
+            "category": self.category,
+            "confidence": self.confidence,
+            "abspath": self.abspath,
+            "path": self.path,
+            "module": self.module,
+            "obj": self.obj,
+            "line": self.line,
+            "column": self.column,
+            "end_line": self.end_line,
+            "end_column": self.end_column,
+            "options": self.options
+        }
+    
     def format(self, template: str) -> str:
         """Format the message according to the given template.
 
@@ -63,6 +83,26 @@ class Message:  # pylint: disable=too-many-instance-attributes
         cf. https://docs.python.org/2/library/string.html#formatstrings
         """
         return template.format(**asdict(self))
+    
+    def to_dict(self):
+        """Convert the Message object into a dictionary suitable for JSON serialization."""
+        return {
+            "msg_id": self.msg_id,
+            "symbol": self.symbol,
+            "msg": self.msg,
+            "C": self.C,
+            "category": self.category,
+            "confidence": self.confidence.name if self.confidence else None,  # Assuming confidence has a 'name' attribute
+            "abspath": self.abspath,
+            "path": self.path,
+            "module": self.module,
+            "obj": self.obj,
+            "line": self.line,
+            "column": self.column,
+            "end_line": self.end_line,
+            "end_column": self.end_column,
+            "options": self.options.to_dict() if self.options else None  # Assuming options can be converted to dict
+        }
 
     @property
     def location(self) -> MessageLocationTuple:

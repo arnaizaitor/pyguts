@@ -13,6 +13,7 @@ from pyguts.logger.logger import logger
 from pyguts.message.message_store import MessageStore
 from pyguts.message.message_id_store import MessageIdStore
 from pyguts.utils.file_state_handler import FileStateHandler
+from pyguts.reporters.base_reporter import BaseReporter
 
 from pprint import pprint, pformat
 
@@ -23,9 +24,10 @@ class PyGuts(
 ):
     """Checks Python modules for Unacomplished Tool Specifications (GUTS)"""
 
-    def __init__(self, base_dir: str) -> None:
+    def __init__(self, base_dir: str, reporter: BaseReporter) -> None:
         super().__init__(base_dir=base_dir)  # Initialize ASTWalker attributes
         self.base_dir = base_dir
+        self.reporter = reporter
 
         self._message_store: MessageStore = MessageStore()
         self._message_id_store: MessageIdStore = MessageIdStore()
@@ -95,8 +97,11 @@ class PyGuts(
             file_finder.check(all_files)
 
         logger.info(
-            f"Messages stored: {pformat(self._message_store.get_messages_sorted_by_location())}"
+            f"Messages stored:\n\n {pformat(self._message_store.get_messages_sorted_by_location())}"
         )
+
+        # Generate report
+        self.reporter.report()
 
     def register_checkers(self) -> None:
         """Registers all checkers in pyguts.checkers module"""
@@ -108,11 +113,9 @@ class PyGuts(
             ):
                 try:
                     logger.debug(f"Loading checker from file: {filename}")
-                    logger.critical("LLEGA")
                     module = astroid.modutils.load_module_from_file(
                         os.path.join(PYGUTS_HOME, "pyguts", "checkers", filename)
                     )
-                    logger.critical("PASA")
                 except ValueError:
                     # empty module name (usually Emacs auto-save files)
                     logger.warning(f"Failed to load checker from file: {filename}")

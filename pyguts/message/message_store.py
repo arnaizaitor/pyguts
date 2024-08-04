@@ -25,6 +25,10 @@ class MessageStore:
         logger.debug(f"Adding message to store: {message}")
         self._message_store.append(message)
 
+    def get_messages(self) -> List[Message]:
+        """Return all the messages stored."""
+        return self._message_store
+
     def get_messages_sorted_by_location(self) -> List[Message]:
         """Return the messages sorted by location."""
         return sorted(self._message_store, key=lambda x: (x.abspath, x.line, x.column))

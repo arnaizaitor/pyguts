@@ -94,3 +94,7 @@ Project Structure
     ├── Pipfile
     ├── README.md
     └── setup.py
+
+## Usage
+
+    ./pyguts/__main__.py [-h] -d DIRECTORY [-r] [-v] -o OUTPUT_DIR -f {json,txt}

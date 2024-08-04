@@ -24,12 +24,12 @@ PYTHON_FILES := **/*.py
 # Define the target to run Black formatter
 black:
 	@echo "Running Black formatter..."
-	@python3 -m black .
+	@python -m black .
 
 # Define the targets to run pylint and Flake8
 lint:
 	@echo "Running pylint..."
-	@python3 -m pylint $(PYTHON_FILES) --rcfile .pylintrc --disable=I0011,I0013,I0021
+	@python -m pylint $(PYTHON_FILES) --rcfile .pylintrc --disable=I0011,I0013,I0021
 	@echo "Running Flake8..."
 	@flake8 $(PYTHON_FILES)
 
@@ -48,14 +48,14 @@ clean:
 	@echo "Cleaning pytest cache..."
 	@if [ -d .pytest_cache ]; then rm -r .pytest_cache; fi
 	@echo "Cleaning log files..."
-	@python3 -Bc "import pathlib; [p.unlink() for p in pathlib.Path('.').rglob('*.log')]"
+	@python -Bc "import pathlib; [p.unlink() for p in pathlib.Path('.').rglob('*.log')]"
 	@echo "Cleaning Python cache files..."
-	@python3 -Bc "import pathlib; [p.unlink() for p in pathlib.Path('.').rglob('*.py[co]')]"
+	@python -Bc "import pathlib; [p.unlink() for p in pathlib.Path('.').rglob('*.py[co]')]"
 	@echo "Cleaning Python cache directories..."
-	@python3 -Bc "import pathlib; [p.rmdir() for p in pathlib.Path('.').rglob('__pycache__')]"
+	@python -Bc "import pathlib; [p.rmdir() for p in pathlib.Path('.').rglob('__pycache__')]"
 
 run:
 	@echo "Running the application..."
-	@python3 pyguts/__main__.py ./examples
+	@python pyguts/__main__.py ./examples
 
 all: black lint coverage test clean
