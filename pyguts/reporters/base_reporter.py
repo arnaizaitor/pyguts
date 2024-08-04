@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from pyguts.message.message_store import MessageStore
 
+
 class BaseReporter(ABC):
     def __init__(self, output_dir: str) -> None:
         self.output_dir = output_dir

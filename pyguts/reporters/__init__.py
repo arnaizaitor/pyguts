@@ -11,6 +11,6 @@ from pyguts.reporters.simple_text_reporter import (
 
 from pyguts.reporters.json_reporter import (
     JsonReporter,
-)  
+)
 
 __all__ = ["BaseReporter", "SimpleTextReporter", "JsonReporter"]

@@ -41,14 +41,18 @@ class Run:
             "-v", "--version", action="store_true", help="Show pyguts version and exit"
         )
         parser.add_argument(
-            '-o', 
-            '--output',
-            metavar='OUTPUT_DIR',
-            required=True, 
-            help='Directory to store the generated report.'
+            "-o",
+            "--output",
+            metavar="OUTPUT_DIR",
+            required=True,
+            help="Directory to store the generated report.",
         )
         parser.add_argument(
-            '-f', '--format', required=True, choices=['json', 'txt'], help='Format of the report to generate (json or txt).'
+            "-f",
+            "--format",
+            required=True,
+            choices=["json", "txt"],
+            help="Format of the report to generate (json or txt).",
         )
 
         # Parse arguments
@@ -68,14 +72,16 @@ class Run:
         if not os.path.exists(self.output_dir):
             os.makedirs(self.output_dir)
 
-        ReporterClass = SimpleTextReporter if self.format == 'txt' else JsonReporter
+        ReporterClass = SimpleTextReporter if self.format == "txt" else JsonReporter
 
         # Run the guts with the specified directory and recursive options
         if os.path.isdir(self.directory_to_check) and os.path.exists(
             self.directory_to_check
         ):
             # Initialize PyGuts instance
-            self.guts = guts = self.GutsClass(self.directory_to_check, reporter=ReporterClass(self.output_dir))
+            self.guts = guts = self.GutsClass(
+                self.directory_to_check, reporter=ReporterClass(self.output_dir)
+            )
             # Initialize FileStateHandler instance
             logger.debug(f"Initializing FileStateHandler...")
 

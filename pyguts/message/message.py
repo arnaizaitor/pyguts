@@ -73,9 +73,9 @@ class Message:  # pylint: disable=too-many-instance-attributes
             "column": self.column,
             "end_line": self.end_line,
             "end_column": self.end_column,
-            "options": self.options
+            "options": self.options,
         }
-    
+
     def format(self, template: str) -> str:
         """Format the message according to the given template.
 
@@ -83,7 +83,7 @@ class Message:  # pylint: disable=too-many-instance-attributes
         cf. https://docs.python.org/2/library/string.html#formatstrings
         """
         return template.format(**asdict(self))
-    
+
     def to_dict(self):
         """Convert the Message object into a dictionary suitable for JSON serialization."""
         return {
@@ -92,7 +92,9 @@ class Message:  # pylint: disable=too-many-instance-attributes
             "msg": self.msg,
             "C": self.C,
             "category": self.category,
-            "confidence": self.confidence.name if self.confidence else None,  # Assuming confidence has a 'name' attribute
+            "confidence": (
+                self.confidence.name if self.confidence else None
+            ),  # Assuming confidence has a 'name' attribute
             "abspath": self.abspath,
             "path": self.path,
             "module": self.module,
@@ -101,7 +103,9 @@ class Message:  # pylint: disable=too-many-instance-attributes
             "column": self.column,
             "end_line": self.end_line,
             "end_column": self.end_column,
-            "options": self.options.to_dict() if self.options else None  # Assuming options can be converted to dict
+            "options": (
+                self.options.to_dict() if self.options else None
+            ),  # Assuming options can be converted to dict
         }
 
     @property
