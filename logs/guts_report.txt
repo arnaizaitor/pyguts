@@ -1,0 +1,18 @@
+
+********************* test *********************
+G0001:absolute-path-assigned - 17:0: Absolute path '/etc/config/settings.conf' assigned to a variable, consider using a relative path or receive the path as script argument.
+G0002:absolute-path-used - 21:5: Absolute path '/Users/aitorarnaiz/Desktop/guts-test/test.py' used as an argument, consider using a relative path or receive the path as script argument.
+G0001:absolute-path-assigned - 26:0: Absolute path '/usr/local' assigned to a variable, consider using a relative path or receive the path as script argument.
+G0003:absolute-path-from-binop - 33:13: Concatenation results in absolute path '/workspace/project'. Consider using a relative path or a configuration method.
+G0004:virtual-unit-creation-subst - 40:8: Attempting to create virtual unit with 'subst' command
+G0005:virtual-unit-creation-mount - 46:0: Attempting to create virtual unit with 'mount' command
+G0004:virtual-unit-creation-subst - 48:9: Attempting to create virtual unit with 'subst' command
+G0004:virtual-unit-creation-subst - 51:0: Attempting to create virtual unit with 'subst' command
+G0004:virtual-unit-creation-subst - 53:0: Attempting to create virtual unit with 'subst' command
+G0004:virtual-unit-creation-subst - 58:0: Attempting to create virtual unit with 'subst' command
+
+********************* tool_template *********************
+G0001:absolute-path-assigned - 35:4: Absolute path '/etc/config/settings.conf' assigned to a variable, consider using a relative path or receive the path as script argument.
+
+********************* test_empty.readME *********************
+G0007:readme-found-empty - None:None: README file found at test_empty\readME.md is empty.

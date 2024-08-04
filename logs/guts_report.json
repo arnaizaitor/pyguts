@@ -1,0 +1,248 @@
+{
+    "test": [
+        {
+            "msg_id": "G0001",
+            "symbol": "absolute-path-assigned",
+            "msg": "Absolute path '/etc/config/settings.conf' assigned to a variable, consider using a relative path or receive the path as script argument.",
+            "C": "G",
+            "category": "unacomplished",
+            "confidence": {
+                "name": "HIGH",
+                "description": "Warning that is not based on inference result."
+            },
+            "abspath": "C:\\Users\\arnai\\Documents\\workspace\\pyguts\\examples\\test.py",
+            "path": "test.py",
+            "module": "test",
+            "obj": "Assign(targets=[<AssignName.config_path l.17 at 0x1bb76de6ed0>],\n       value=<Const.str l.17 at 0x1bb76de6f90>)",
+            "line": 17,
+            "column": 0,
+            "end_line": 17,
+            "end_column": 41,
+            "options": null
+        },
+        {
+            "msg_id": "G0002",
+            "symbol": "absolute-path-used",
+            "msg": "Absolute path '/Users/aitorarnaiz/Desktop/guts-test/test.py' used as an argument, consider using a relative path or receive the path as script argument.",
+            "C": "G",
+            "category": "unacomplished",
+            "confidence": {
+                "name": "HIGH",
+                "description": "Warning that is not based on inference result."
+            },
+            "abspath": "C:\\Users\\arnai\\Documents\\workspace\\pyguts\\examples\\test.py",
+            "path": "test.py",
+            "module": "test",
+            "obj": "Call(func=<Name.open l.21 at 0x1bb76de7290>,\n     args=[<Const.str l.21 at 0x1bb76de7390>],\n     keywords=[])",
+            "line": 21,
+            "column": 5,
+            "end_line": 21,
+            "end_column": 57,
+            "options": null
+        },
+        {
+            "msg_id": "G0001",
+            "symbol": "absolute-path-assigned",
+            "msg": "Absolute path '/usr/local' assigned to a variable, consider using a relative path or receive the path as script argument.",
+            "C": "G",
+            "category": "unacomplished",
+            "confidence": {
+                "name": "HIGH",
+                "description": "Warning that is not based on inference result."
+            },
+            "abspath": "C:\\Users\\arnai\\Documents\\workspace\\pyguts\\examples\\test.py",
+            "path": "test.py",
+            "module": "test",
+            "obj": "Assign(targets=[<AssignName.base_dir l.26 at 0x1bb76de77d0>],\n       value=<Const.str l.26 at 0x1bb76de7810>)",
+            "line": 26,
+            "column": 0,
+            "end_line": 26,
+            "end_column": 23,
+            "options": null
+        },
+        {
+            "msg_id": "G0003",
+            "symbol": "absolute-path-from-binop",
+            "msg": "Concatenation results in absolute path '/workspace/project'. Consider using a relative path or a configuration method.",
+            "C": "G",
+            "category": "unacomplished",
+            "confidence": {
+                "name": "HIGH",
+                "description": "Warning that is not based on inference result."
+            },
+            "abspath": "C:\\Users\\arnai\\Documents\\workspace\\pyguts\\examples\\test.py",
+            "path": "test.py",
+            "module": "test",
+            "obj": "BinOp(op='+',\n      left=<Const.str l.33 at 0x1bb76de7d50>,\n      right=<Const.str l.33 at 0x1bb76de7e10>)",
+            "line": 33,
+            "column": 13,
+            "end_line": 33,
+            "end_column": 38,
+            "options": null
+        },
+        {
+            "msg_id": "G0004",
+            "symbol": "virtual-unit-creation-subst",
+            "msg": "Attempting to create virtual unit with 'subst' command",
+            "C": "G",
+            "category": "unacomplished",
+            "confidence": {
+                "name": "HIGH",
+                "description": "Warning that is not based on inference result."
+            },
+            "abspath": "C:\\Users\\arnai\\Documents\\workspace\\pyguts\\examples\\test.py",
+            "path": "test.py",
+            "module": "test",
+            "obj": "Call(func=<Attribute.check_output l.40 at 0x1bb76dec590>,\n     args=[<List.list l.40 at 0x1bb76de7150>],\n     keywords=[])",
+            "line": 40,
+            "column": 8,
+            "end_line": 40,
+            "end_column": 60,
+            "options": null
+        },
+        {
+            "msg_id": "G0005",
+            "symbol": "virtual-unit-creation-mount",
+            "msg": "Attempting to create virtual unit with 'mount' command",
+            "C": "G",
+            "category": "unacomplished",
+            "confidence": {
+                "name": "HIGH",
+                "description": "Warning that is not based on inference result."
+            },
+            "abspath": "C:\\Users\\arnai\\Documents\\workspace\\pyguts\\examples\\test.py",
+            "path": "test.py",
+            "module": "test",
+            "obj": "Call(func=<Attribute.check_output l.46 at 0x1bb76dece10>,\n     args=[<List.list l.46 at 0x1bb76deced0>],\n     keywords=[])",
+            "line": 46,
+            "column": 0,
+            "end_line": 46,
+            "end_column": 73,
+            "options": null
+        },
+        {
+            "msg_id": "G0004",
+            "symbol": "virtual-unit-creation-subst",
+            "msg": "Attempting to create virtual unit with 'subst' command",
+            "C": "G",
+            "category": "unacomplished",
+            "confidence": {
+                "name": "HIGH",
+                "description": "Warning that is not based on inference result."
+            },
+            "abspath": "C:\\Users\\arnai\\Documents\\workspace\\pyguts\\examples\\test.py",
+            "path": "test.py",
+            "module": "test",
+            "obj": "Call(func=<Attribute.run l.48 at 0x1bb76ded150>,\n     args=[<List.list l.48 at 0x1bb76ded210>],\n     keywords=[<Keyword l.48 at 0x1bb76ded3d0>, <Keyword l.48 at 0x1bb76ded490>])",
+            "line": 48,
+            "column": 9,
+            "end_line": 48,
+            "end_column": 84,
+            "options": null
+        },
+        {
+            "msg_id": "G0004",
+            "symbol": "virtual-unit-creation-subst",
+            "msg": "Attempting to create virtual unit with 'subst' command",
+            "C": "G",
+            "category": "unacomplished",
+            "confidence": {
+                "name": "HIGH",
+                "description": "Warning that is not based on inference result."
+            },
+            "abspath": "C:\\Users\\arnai\\Documents\\workspace\\pyguts\\examples\\test.py",
+            "path": "test.py",
+            "module": "test",
+            "obj": "Call(func=<Attribute.system l.51 at 0x1bb76ded7d0>,\n     args=[<Const.str l.51 at 0x1bb76ded8d0>],\n     keywords=[])",
+            "line": 51,
+            "column": 0,
+            "end_line": 51,
+            "end_column": 30,
+            "options": null
+        },
+        {
+            "msg_id": "G0004",
+            "symbol": "virtual-unit-creation-subst",
+            "msg": "Attempting to create virtual unit with 'subst' command",
+            "C": "G",
+            "category": "unacomplished",
+            "confidence": {
+                "name": "HIGH",
+                "description": "Warning that is not based on inference result."
+            },
+            "abspath": "C:\\Users\\arnai\\Documents\\workspace\\pyguts\\examples\\test.py",
+            "path": "test.py",
+            "module": "test",
+            "obj": "Call(func=<Attribute.Popen l.53 at 0x1bb76ded990>,\n     args=[<List.list l.54 at 0x1bb76deda90>],\n     keywords=[<Keyword l.54 at 0x1bb76deda10>, <Keyword l.54 at 0x1bb76dedcd0>])",
+            "line": 53,
+            "column": 0,
+            "end_line": 55,
+            "end_column": 1,
+            "options": null
+        },
+        {
+            "msg_id": "G0004",
+            "symbol": "virtual-unit-creation-subst",
+            "msg": "Attempting to create virtual unit with 'subst' command",
+            "C": "G",
+            "category": "unacomplished",
+            "confidence": {
+                "name": "HIGH",
+                "description": "Warning that is not based on inference result."
+            },
+            "abspath": "C:\\Users\\arnai\\Documents\\workspace\\pyguts\\examples\\test.py",
+            "path": "test.py",
+            "module": "test",
+            "obj": "Call(func=<Attribute.system l.58 at 0x1bb76dee190>,\n     args=[<Const.str l.58 at 0x1bb76dee290>],\n     keywords=[])",
+            "line": 58,
+            "column": 0,
+            "end_line": 58,
+            "end_column": 30,
+            "options": null
+        }
+    ],
+    "tool_template": [
+        {
+            "msg_id": "G0001",
+            "symbol": "absolute-path-assigned",
+            "msg": "Absolute path '/etc/config/settings.conf' assigned to a variable, consider using a relative path or receive the path as script argument.",
+            "C": "G",
+            "category": "unacomplished",
+            "confidence": {
+                "name": "HIGH",
+                "description": "Warning that is not based on inference result."
+            },
+            "abspath": "C:\\Users\\arnai\\Documents\\workspace\\pyguts\\examples\\tool_template.py",
+            "path": "tool_template.py",
+            "module": "tool_template",
+            "obj": "Assign(targets=[<AssignName.config_path l.35 at 0x1bb76def950>],\n       value=<Const.str l.35 at 0x1bb76defa10>)",
+            "line": 35,
+            "column": 4,
+            "end_line": 35,
+            "end_column": 45,
+            "options": null
+        }
+    ],
+    "test_empty.readME": [
+        {
+            "msg_id": "G0007",
+            "symbol": "readme-found-empty",
+            "msg": "README file found at test_empty\\readME.md is empty.",
+            "C": "G",
+            "category": "unacomplished",
+            "confidence": {
+                "name": "HIGH",
+                "description": "Warning that is not based on inference result."
+            },
+            "abspath": "C:\\Users\\arnai\\Documents\\workspace\\pyguts\\examples\\test_empty\\readME.md",
+            "path": "test_empty\\readME.md",
+            "module": "test_empty.readME",
+            "obj": "readME.md",
+            "line": null,
+            "column": null,
+            "end_line": null,
+            "end_column": null,
+            "options": null
+        }
+    ]
+}
